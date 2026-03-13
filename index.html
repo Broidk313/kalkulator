@@ -1,31 +1,1029 @@
 <!DOCTYPE html>
-<html lang="sk" class="dark">
-  <head>
-    <!--
-       ______                            __
-      / ____/___  ____ ___  ____  __  __/ /____  _____
-     / /   / __ \/ __ `__ \/ __ \/ / / / __/ _ \/ ___/
-    / /___/ /_/ / / / / / / /_/ / /_/ / /_/  __/ /
-    \____/\____/_/ /_/ /_/ .___/\__,_/\__/\___/_/
-                        /_/
-            Created with Perplexity Computer
-            https://www.perplexity.ai/computer
-    -->
-    <meta name="generator" content="Perplexity Computer">
-    <meta name="author" content="Perplexity Computer">
-    <meta property="og:see_also" content="https://www.perplexity.ai/computer">
-    <link rel="author" href="https://www.perplexity.ai/computer">
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
-    <title>FS Quiz Calculator</title>
-    <link rel="icon" type="image/png" href="/favicon.png" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Fira+Code:wght@300..700&family=Geist+Mono:wght@100..900&family=Geist:wght@100..900&family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Lora:ital,wght@0,400..700;1,400..700&family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Outfit:wght@100..900&family=Oxanium:wght@200..800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100..900;1,100..900&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&family=Space+Grotesk:wght@300..700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
-    <script type="module" crossorigin src="./assets/index-TFop4R0u.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-ClNi-3kX.css">
-  </head>
-  <body>
-    <div id="root"></div>
-  </body>
+<html lang="sk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FS Quiz Calculator</title>
+<meta name="description" content="Formula Student Quiz Calculator - výpočty pre FS tímy">
+<!--
+  _____ ____     ___        _        ____      _            _       _
+ |  ___/ ___|   / _ \ _   _(_)____  / ___|__ _| | ___ _   _| | __ _| |_ ___  _ __
+ | |_  \___ \  | | | | | | | |_  / | |   / _` | |/ __| | | | |/ _` | __/ _ \| '__|
+ |  _|  ___) | | |_| | |_| | |/ /  | |__| (_| | | (__| |_| | | (_| | || (_) | |
+ |_|   |____/   \__\_\\__,_|_/___|  \____\__,_|_|\___|\__,_|_|\__,_|\__\___/|_|
+
+  Created with Perplexity Computer
+  https://www.perplexity.ai/computer
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300..800;1,9..40,300..800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0a1628;--bg-card:#0f1a2e;--bg-sidebar:#0c1525;
+  --fg:#f0f4fc;--fg-muted:#7a8ba8;--fg-dim:#4a5a78;
+  --primary:#22d3ee;--primary-dim:rgba(34,211,238,0.12);--primary-glow:rgba(34,211,238,0.25);
+  --border:#1a2a44;--border-hover:#2a3a5a;
+  --red:#ef4444;--green:#22c55e;
+  --radius:8px;
+}
+html{font-size:15px}
+body{font-family:'DM Sans',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--fg);min-height:100vh;overflow-x:hidden}
+a{color:var(--primary);text-decoration:none}
+a:hover{text-decoration:underline}
+
+/* LAYOUT */
+.app{display:flex;flex-direction:column;min-height:100vh}
+.topbar{display:flex;align-items:center;height:52px;background:var(--bg-card);border-bottom:1px solid var(--border);padding:0 16px;gap:12px;position:sticky;top:0;z-index:100}
+.topbar-logo{display:flex;align-items:center;gap:8px;color:var(--primary);font-weight:700;font-size:1.05rem;cursor:pointer;white-space:nowrap}
+.topbar-logo svg{width:24px;height:24px;flex-shrink:0}
+.topbar-tabs{display:flex;gap:4px;margin-left:auto}
+.topbar-tab{background:none;border:1px solid transparent;color:var(--fg-muted);padding:6px 14px;border-radius:var(--radius);cursor:pointer;font:inherit;font-size:.85rem;white-space:nowrap;transition:all .15s}
+.topbar-tab:hover{color:var(--fg);background:var(--primary-dim)}
+.topbar-tab.active{color:var(--primary);background:var(--primary-dim);border-color:var(--primary);font-weight:600}
+.menu-btn{display:none;background:none;border:none;color:var(--fg);font-size:1.3rem;cursor:pointer;padding:4px 8px}
+
+.main-wrap{display:flex;flex:1;position:relative}
+
+/* SIDEBAR */
+.sidebar{width:210px;background:var(--bg-sidebar);border-right:1px solid var(--border);padding:8px;overflow-y:auto;flex-shrink:0;position:sticky;top:52px;height:calc(100vh - 52px)}
+.sidebar-btn{display:flex;align-items:center;gap:8px;width:100%;background:none;border:none;color:var(--fg-muted);padding:9px 12px;border-radius:var(--radius);cursor:pointer;font:inherit;font-size:.85rem;text-align:left;transition:all .15s}
+.sidebar-btn:hover{background:var(--primary-dim);color:var(--fg)}
+.sidebar-btn.active{background:var(--primary-dim);color:var(--primary);font-weight:600}
+.sidebar-btn .icon{font-size:1.05rem;width:1.4em;text-align:center;flex-shrink:0}
+
+/* CONTENT */
+.content{flex:1;padding:24px;max-width:900px;margin:0 auto;width:100%}
+
+/* CALC CARD */
+.calc-card{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:24px}
+.calc-card h2{font-size:1.3rem;margin-bottom:12px;color:var(--fg)}
+.info-box{background:var(--primary-dim);border:1px solid rgba(34,211,238,0.2);border-radius:var(--radius);padding:10px 14px;font-family:'DM Sans',monospace;font-size:.88rem;color:var(--primary);margin-bottom:18px;letter-spacing:0.02em}
+
+.form-row{display:flex;flex-direction:column;gap:5px;margin-bottom:14px}
+.form-row label{font-size:.82rem;color:var(--fg-muted);font-weight:500}
+.form-row select,.form-row input{background:var(--bg);border:1px solid var(--border);color:var(--fg);padding:9px 12px;border-radius:var(--radius);font:inherit;font-size:.9rem;outline:none;transition:border-color .15s}
+.form-row select:focus,.form-row input:focus{border-color:var(--primary)}
+.form-row select{cursor:pointer}
+.form-row select option{background:var(--bg-card);color:var(--fg)}
+
+.form-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px 16px}
+
+.calc-btn{width:100%;background:linear-gradient(135deg,var(--primary),#06b6d4);color:#0a1628;border:none;padding:12px;border-radius:var(--radius);font:inherit;font-size:.95rem;font-weight:700;cursor:pointer;margin-top:8px;transition:opacity .15s,transform .1s}
+.calc-btn:hover{opacity:.9}
+.calc-btn:active{transform:scale(0.98)}
+
+.result-box{margin-top:18px;background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:16px;animation:fadeIn .2s ease}
+.result-value{font-size:1.35rem;font-weight:700;color:var(--primary);margin-bottom:8px}
+.result-steps{font-size:.85rem;color:var(--fg-muted);white-space:pre-wrap;font-family:'DM Sans',monospace;line-height:1.6}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+/* RULES PAGE */
+.rules-page{max-width:800px;margin:0 auto}
+.rules-page h2{font-size:1.3rem;margin-bottom:16px;color:var(--fg)}
+.rules-search{width:100%;background:var(--bg);border:1px solid var(--border);color:var(--fg);padding:10px 14px;border-radius:var(--radius);font:inherit;font-size:.9rem;margin-bottom:18px;outline:none;transition:border-color .15s}
+.rules-search:focus{border-color:var(--primary)}
+.rules-search::placeholder{color:var(--fg-dim)}
+.rule-item{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;margin-bottom:10px;transition:border-color .15s}
+.rule-item:hover{border-color:var(--border-hover)}
+.rule-q{font-weight:600;color:var(--primary);font-size:.92rem;margin-bottom:6px;cursor:pointer;display:flex;align-items:center;gap:8px}
+.rule-q::before{content:'▸';color:var(--fg-dim);transition:transform .2s;font-size:.75rem}
+.rule-item.open .rule-q::before{transform:rotate(90deg)}
+.rule-a{font-size:.87rem;color:var(--fg-muted);line-height:1.65;display:none;padding-top:6px;border-top:1px solid var(--border);margin-top:8px}
+.rule-item.open .rule-a{display:block}
+.rule-tag{display:inline-block;background:var(--primary-dim);color:var(--primary);font-size:.72rem;padding:2px 7px;border-radius:4px;margin-right:4px;font-weight:600}
+.rules-count{font-size:.82rem;color:var(--fg-dim);margin-bottom:12px}
+
+/* AI PAGE */
+.ai-page{max-width:700px;margin:40px auto;text-align:center}
+.ai-page h2{font-size:1.4rem;margin-bottom:16px}
+.ai-page p{color:var(--fg-muted);line-height:1.65;margin-bottom:20px}
+.ai-link-btn{display:inline-block;background:linear-gradient(135deg,var(--primary),#06b6d4);color:#0a1628;padding:12px 28px;border-radius:var(--radius);font-weight:700;font-size:.95rem;transition:opacity .15s}
+.ai-link-btn:hover{opacity:.85;text-decoration:none}
+
+/* FOOTER */
+.app-footer{display:flex;justify-content:space-between;align-items:center;padding:12px 20px;font-size:.75rem;color:var(--fg-dim);border-top:1px solid var(--border);background:var(--bg-card)}
+.app-footer a{color:var(--fg-dim);transition:color .15s}
+.app-footer a:hover{color:var(--primary)}
+
+/* SIDEBAR OVERLAY */
+.sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:90}
+
+/* MOBILE */
+@media(max-width:768px){
+  .menu-btn{display:block}
+  .topbar-logo span{display:none}
+  .topbar-tab{font-size:.78rem;padding:5px 8px}
+  .sidebar{position:fixed;left:0;top:52px;bottom:0;z-index:95;transform:translateX(-100%);transition:transform .25s ease}
+  .sidebar.open{transform:translateX(0)}
+  .sidebar-overlay.open{display:block}
+  .form-grid{grid-template-columns:1fr}
+  .content{padding:16px}
+  .app-footer{flex-direction:column;gap:4px;text-align:center}
+}
+</style>
+</head>
+<body>
+<div class="app" id="app">
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <button class="menu-btn" id="menuBtn" onclick="toggleSidebar()" aria-label="Menu">☰</button>
+    <div class="topbar-logo" onclick="switchTab('calc')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+        <path d="M2 17l10 5 10-5"/>
+        <path d="M2 12l10 5 10-5"/>
+      </svg>
+      <span>FS Quiz Calculator</span>
+    </div>
+    <div class="topbar-tabs">
+      <button class="topbar-tab active" data-tab="calc" onclick="switchTab('calc')">📟 Kalkulačka</button>
+      <button class="topbar-tab" data-tab="rules" onclick="switchTab('rules')">🤖 AI Pravidlá</button>
+      <button class="topbar-tab" data-tab="ai" onclick="switchTab('ai')">✨ AI Asistent</button>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <div class="main-wrap">
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+    <aside class="sidebar" id="sidebar"></aside>
+    <main class="content" id="mainContent"></main>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="app-footer">
+    <span>FS Quiz Calculator — fs-quiz.eu</span>
+    <a href="https://www.perplexity.ai/computer" target="_blank" rel="noopener">Created with Perplexity Computer</a>
+  </footer>
+</div>
+
+<script>
+// ===================== DATA =====================
+
+const categories = [
+  { id:'kin', name:'Kinematika', icon:'🏎️' },
+  { id:'dyn', name:'Dynamika', icon:'💪' },
+  { id:'stat', name:'Statika', icon:'⚖️' },
+  { id:'circ', name:'Kruhový pohyb', icon:'🔄' },
+  { id:'ene', name:'Energia & Práca', icon:'⚡' },
+  { id:'therm', name:'Termodynamika', icon:'🌡️' },
+  { id:'ele', name:'Elektrotechnika', icon:'🔌' },
+  { id:'hyd', name:'Hydraulika', icon:'💧' },
+  { id:'mat', name:'Pevnosť materiálov', icon:'🔩' },
+  { id:'vib', name:'Vibrácie', icon:'📊' },
+  { id:'gear', name:'Prevodovky', icon:'⚙️' },
+  { id:'motor', name:'Motor', icon:'🔧' },
+  { id:'sandwich', name:'Sendvič & Kompozity', icon:'🧱' },
+  { id:'aero', name:'Podvozok & Aero', icon:'🏁' },
+  { id:'numser', name:'Čísla & Logika', icon:'🧮' },
+  { id:'conv', name:'Konverzie', icon:'🔀' },
+];
+
+const categoriesConfig = [
+  {
+    id:'kin', info:'v = v₀+at | s = v₀t+½at² | v²=v₀²+2as',
+    types:[
+      {v:'vel',l:'Rýchlosť (v=v₀+at)'},{v:'disp',l:'Dráha (s=v₀t+½at²)'},
+      {v:'vNoT',l:'Rýchlosť bez času (v²=v₀²+2as)'},{v:'time',l:'Čas zastavenia (t=-v₀/a)'},
+      {v:'acc',l:'Zrýchlenie (a=(v-v₀)/t)'},{v:'fall',l:'Voľný pád (h=½gt²)'},
+      {v:'projR',l:'Šikmý vrh - dolet'},{v:'projH',l:'Šikmý vrh - max výška'},
+    ],
+    fields:[
+      {id:'v0',l:'v₀ (m/s)',d:0},{id:'vf',l:'v (m/s)',d:0},{id:'a',l:'a (m/s²)',d:0},
+      {id:'t',l:'t (s)',d:0},{id:'s',l:'s (m)',d:0},{id:'ang',l:'θ (°)',d:45},
+    ]
+  },
+  {
+    id:'dyn', info:'F=ma | p=mv | J=FΔt | Ff=μN',
+    types:[
+      {v:'force',l:'Sila (F=ma)'},{v:'mom',l:'Hybnosť (p=mv)'},
+      {v:'imp',l:'Impulz (J=FΔt)'},{v:'fric',l:'Trecia sila (Ff=μN)'},
+      {v:'incl',l:'Naklonená rovina'},{v:'centr',l:'Dostredivá sila (F=mv²/r)'},
+      {v:'grav',l:'Gravitačná sila (F=GMm/r²)'},
+    ],
+    fields:[
+      {id:'m',l:'m (kg)',d:0},{id:'a',l:'a (m/s²)',d:0},{id:'F',l:'F (N)',d:0},
+      {id:'vf',l:'v (m/s)',d:0},{id:'dt',l:'Δt (s)',d:0},{id:'mu',l:'μ',d:0},
+      {id:'ang',l:'θ (°)',d:0},
+    ]
+  },
+  {
+    id:'stat', info:'ΣF=0 | ΣM=0 | M=F×d',
+    types:[
+      {v:'moment',l:'Moment sily (M=F×d)'},{v:'couple',l:'Silová dvojica'},
+      {v:'beam2',l:'Nosník 2 podpery'},{v:'cant',l:'Konzolový nosník'},
+      {v:'truss',l:'Ťah/Tlak v prúte'},
+    ],
+    fields:[
+      {id:'F',l:'F (N)',d:0},{id:'d',l:'d (m)',d:0},{id:'L',l:'L (m)',d:0},
+      {id:'a_pos',l:'a (m) pozícia sily',d:0},{id:'ang',l:'θ (°)',d:90},
+    ]
+  },
+  {
+    id:'circ', info:'ω=2πf | v=ωr | ac=v²/r',
+    types:[
+      {v:'omega',l:'Uhlová rýchlosť (ω=2πn/60)'},{v:'linV',l:'Obvodová rýchlosť (v=ωr)'},
+      {v:'centA',l:'Dostredivé zrýchlenie (ac=v²/r)'},{v:'period',l:'Perióda (T=2π/ω)'},
+      {v:'bank',l:'Banking angle (tan θ=v²/rg)'},
+    ],
+    fields:[
+      {id:'n',l:'n (rpm)',d:0},{id:'r',l:'r (m)',d:0},{id:'vf',l:'v (m/s)',d:0},
+      {id:'f',l:'f (Hz)',d:0},{id:'omega',l:'ω (rad/s)',d:0},
+    ]
+  },
+  {
+    id:'ene', info:'Ek=½mv² | Ep=mgh | W=Fs | P=W/t',
+    types:[
+      {v:'kinE',l:'Kinetická energia (½mv²)'},{v:'potE',l:'Potenciálna energia (mgh)'},
+      {v:'work',l:'Práca (W=Fs cos θ)'},{v:'power',l:'Výkon (P=W/t)'},
+      {v:'eff',l:'Účinnosť (η=Pout/Pin)'},{v:'spring',l:'Energia pružiny (½kx²)'},
+      {v:'regen',l:'Regeneratívne brzdenie'},
+    ],
+    fields:[
+      {id:'m',l:'m (kg)',d:0},{id:'vf',l:'v (m/s)',d:0},{id:'h',l:'h (m)',d:0},
+      {id:'F',l:'F (N)',d:0},{id:'s',l:'s (m)',d:0},{id:'t',l:'t (s)',d:0},
+      {id:'P',l:'P (kW)',d:0},{id:'k',l:'k (N/m)',d:0},{id:'x',l:'x (m)',d:0},
+      {id:'ang',l:'θ (°)',d:0},{id:'eff',l:'η (%)',d:100},
+    ]
+  },
+  {
+    id:'therm', info:'Q=mcΔT | PV=nRT | η_carnot=1-Tc/Th',
+    types:[
+      {v:'heat',l:'Teplo (Q=mcΔT)'},{v:'ideal',l:'Ideálny plyn (PV=nRT)'},
+      {v:'carnot',l:'Carnotov cyklus'},{v:'conduct',l:'Vedenie tepla (Q=kAΔT/d)'},
+      {v:'convect',l:'Konvekcia (Q=hAΔT)'},
+    ],
+    fields:[
+      {id:'m',l:'m (kg)',d:0},{id:'c',l:'c (J/kg·K)',d:0},{id:'dT',l:'ΔT (K)',d:0},
+      {id:'P_pres',l:'P (Pa)',d:0},{id:'Vol',l:'V (m³)',d:0},{id:'n_mol',l:'n (mol)',d:0},
+      {id:'Th',l:'T_h (K)',d:0},{id:'Tc',l:'T_c (K)',d:0},
+      {id:'k_cond',l:'k (W/m·K)',d:0},{id:'A',l:'A (m²)',d:0},{id:'d',l:'d (m)',d:0},
+    ]
+  },
+  {
+    id:'ele', info:'V=IR | P=VI | E=½CV² | E=½LI²',
+    types:[
+      {v:'ohm_v',l:'V = IR'},{v:'ohm_i',l:'I = V/R'},{v:'ohm_r',l:'R = V/I'},
+      {v:'pow',l:'P = VI'},{v:'pow_r',l:'P = I²R'},{v:'energy',l:'E = Pt'},
+      {v:'cap',l:'E kapacitora (½CV²)'},{v:'ind',l:'E induktora (½LI²)'},
+      {v:'motor',l:'Motor konštanty (kE, kT)'},
+      {v:'serR',l:'Sériové odpory'},{v:'parR',l:'Paralelné odpory'},
+      {v:'rc',l:'RC konštanta (τ=RC)'},{v:'reson',l:'Rezonančná frekvencia'},
+    ],
+    fields:[
+      {id:'V',l:'V (V)',d:0},{id:'I',l:'I (A)',d:0},{id:'R',l:'R₁ (Ω)',d:0},
+      {id:'R2',l:'R₂ (Ω)',d:0},{id:'R3',l:'R₃ (Ω)',d:0},
+      {id:'P',l:'P (kW)',d:0},{id:'t',l:'t (s)',d:0},{id:'C',l:'C (F)',d:0},
+      {id:'L_ind',l:'L (H)',d:0},{id:'n',l:'n (rpm)',d:0},
+    ]
+  },
+  {
+    id:'hyd', info:'p=F/A | Q=Av | P=pQ',
+    types:[
+      {v:'pres',l:'Tlak (p=F/A)'},{v:'force',l:'Sila (F=pA)'},
+      {v:'vel',l:'Rýchlosť piestu (v=Q/A)'},{v:'flow',l:'Prietok (Q=Av)'},
+      {v:'powH',l:'Hydraulický výkon (P=pQ)'},{v:'pascal',l:'Pascalov zákon (F₁/A₁=F₂/A₂)'},
+      {v:'bernoulli',l:'Bernoulliho rovnica'},
+    ],
+    fields:[
+      {id:'F',l:'F (N)',d:0},{id:'A',l:'A₁ (m²)',d:0},{id:'A2',l:'A₂ (m²)',d:0},
+      {id:'P_pres',l:'p (Pa)',d:0},{id:'Q',l:'Q (m³/s)',d:0},{id:'vf',l:'v (m/s)',d:0},
+      {id:'rho',l:'ρ (kg/m³)',d:1000},{id:'h',l:'h (m)',d:0},
+    ]
+  },
+  {
+    id:'mat', info:'σ=F/A | ε=ΔL/L | σ=Eε | σ_b=My/I',
+    types:[
+      {v:'stress',l:'Normálové napätie (σ=F/A)'},{v:'strain',l:'Deformácia (ε=ΔL/L)'},
+      {v:'hooke',l:'Hookov zákon (σ=Eε)'},{v:'bend',l:'Ohybové napätie (σ=My/I)'},
+      {v:'shear',l:'Šmykové napätie (τ=F/A)'},{v:'torsion',l:'Krut (τ=Tr/J)'},
+      {v:'deflect',l:'Priehyb nosníka'},{v:'safety',l:'Súčiniteľ bezpečnosti'},
+    ],
+    fields:[
+      {id:'F',l:'F (N)',d:0},{id:'A',l:'A (m²)',d:0},{id:'L_len',l:'L (m)',d:0},
+      {id:'dL',l:'ΔL (m)',d:0},{id:'E_mod',l:'E (GPa)',d:0},{id:'M_bend',l:'M (N·m)',d:0},
+      {id:'y_dist',l:'y (m)',d:0},{id:'I_inert',l:'I (m⁴)',d:0},
+      {id:'T_torq',l:'T (N·m)',d:0},{id:'r',l:'r (m)',d:0},{id:'J',l:'J (m⁴)',d:0},
+    ]
+  },
+  {
+    id:'vib', info:'f=1/(2π)√(k/m) | ω_n=√(k/m)',
+    types:[
+      {v:'natF',l:'Vlastná frekvencia'},{v:'damped',l:'Tlmené kmitanie'},
+      {v:'crit',l:'Kritické tlmenie'},{v:'transm',l:'Transmisibilita'},
+      {v:'springFric',l:'Pružina s trením - strata E'},
+    ],
+    fields:[
+      {id:'k',l:'k (N/m)',d:0},{id:'m',l:'m (kg)',d:0},
+      {id:'c_damp',l:'c (N·s/m)',d:0},{id:'f',l:'f (Hz)',d:0},
+      {id:'omega',l:'ω (rad/s)',d:0},{id:'mu',l:'μ (trenie)',d:0},
+      {id:'x0',l:'x₀ počiatočná výchylka (m)',d:0},
+    ]
+  },
+  {
+    id:'gear', info:'i=z₂/z₁ | n₂=n₁/i | T₂=T₁·i·η',
+    types:[
+      {v:'ratio',l:'Prevodový pomer (i=z₂/z₁)'},{v:'speed',l:'Výstupné otáčky (n₂=n₁/i)'},
+      {v:'torque',l:'Výstupný moment (T₂=T₁·i·η)'},{v:'chain',l:'Reťazový prevod'},
+      {v:'belt',l:'Remeňový prevod'},
+    ],
+    fields:[
+      {id:'z1',l:'z₁ (zuby)',d:0},{id:'z2',l:'z₂ (zuby)',d:0},
+      {id:'n',l:'n₁ (rpm)',d:0},{id:'T',l:'T₁ (N·m)',d:0},
+      {id:'eff',l:'η (%)',d:95},{id:'d1',l:'d₁ (mm)',d:0},{id:'d2',l:'d₂ (mm)',d:0},
+    ]
+  },
+  {
+    id:'motor', info:'V = (π/4)×d²×zdvih | V_total = V×n | CR = (V+Vc)/Vc',
+    types:[
+      {v:'displ',l:'Zdvihový objem valca'},{v:'displTotal',l:'Celkový objem motora'},
+      {v:'compR',l:'Kompresný pomer'},{v:'meanPist',l:'Stredná rýchlosť piesta'},
+      {v:'torquePow',l:'Výkon z momentu (P=T×ω)'},{v:'bmep',l:'BMEP'},
+    ],
+    fields:[
+      {id:'bore',l:'Vŕtanie/bore (mm)',d:0},{id:'stroke',l:'Zdvih/stroke (mm)',d:0},
+      {id:'n_cyl',l:'Počet valcov',d:1},{id:'Vc',l:'Kompresný objem Vc (cm³)',d:0},
+      {id:'n',l:'Otáčky (rpm)',d:0},{id:'T',l:'Moment (N·m)',d:0},
+      {id:'P',l:'Výkon (kW)',d:0},
+    ]
+  },
+  {
+    id:'sandwich', info:'σ=My/I | K=EI (sendvičové panely, kompozity)',
+    types:[
+      {v:'sandwichBend',l:'Ohyb sendvičového panela'},
+      {v:'sandwichStiff',l:'Tuhosť sendvičového panela (K=EI)'},
+      {v:'compositeStress',l:'Napätie v composite skíne'},
+      {v:'secondMoment',l:'Moment zotrvačnosti (I) obdĺžnik'},
+      {v:'sectionMod',l:'Modul prierezu (W)'},
+    ],
+    fields:[
+      {id:'L_len',l:'Dĺžka L (mm)',d:0},{id:'b_width',l:'Šírka b (mm)',d:0},
+      {id:'h_total',l:'Celková hrúbka h (mm)',d:0},{id:'t_skin',l:'Hrúbka skíny t (mm)',d:0},
+      {id:'t_inner',l:'Hrúbka vnút. skíny ti (mm)',d:0},
+      {id:'E_mod',l:'E modul (GPa)',d:0},{id:'M_bend',l:'Moment M (N·m)',d:0},
+    ]
+  },
+  {
+    id:'aero', info:'Fd=½ρv²CdA | Fl=½ρv²ClA',
+    types:[
+      {v:'drag',l:'Aerodynamický odpor (Fd)'},{v:'lift',l:'Vztlak / Downforce (Fl)'},
+      {v:'roll',l:'Valivý odpor'},{v:'topsp',l:'Max rýchlosť'},
+      {v:'lat',l:'Laterálne zaťaženie'},{v:'weight',l:'Rozloženie hmotnosti'},
+    ],
+    fields:[
+      {id:'rho',l:'ρ (kg/m³)',d:1.225},{id:'vf',l:'v (m/s)',d:0},
+      {id:'Cd',l:'Cd',d:0},{id:'Cl',l:'Cl',d:0},{id:'A',l:'A (m²)',d:0},
+      {id:'m',l:'m (kg)',d:0},{id:'Crr',l:'Crr',d:0.015},
+      {id:'P',l:'P (kW)',d:0},{id:'wb',l:'Rázvor (m)',d:0},
+      {id:'cg',l:'CG vzdialenosť (m)',d:0},
+    ]
+  },
+  {
+    id:'numser', info:'Hexadecimálne, binárne, číselné rady',
+    types:[
+      {v:'hexToDec',l:'Hex → Deciálne'},{v:'decToHex',l:'Deciálne → Hex'},
+      {v:'binToDec',l:'Binárne → Decimálne'},{v:'decToBin',l:'Decimálne → Binárne'},
+      {v:'hexSeq',l:'Hex sekvencia - čo ďalšie?'},
+    ],
+    fields:[
+      {id:'hexVal',l:'Hex hodnota',d:0},{id:'decVal',l:'Decimálna hodnota',d:0},
+      {id:'binVal',l:'Binárna hodnota',d:0},
+    ]
+  },
+  {
+    id:'conv', info:'Konverzia jednotiek',
+    types:[
+      {v:'speed',l:'Rýchlosť'},{v:'force',l:'Sila'},
+      {v:'pressure',l:'Tlak'},{v:'temp',l:'Teplota'},
+      {v:'length',l:'Dĺžka'},{v:'mass',l:'Hmotnosť'},
+      {v:'torqueC',l:'Moment'},{v:'power',l:'Výkon'},
+    ],
+    fields:[
+      {id:'val',l:'Hodnota',d:0},
+    ],
+    conversions:[
+      ['km/h → m/s','kmh_ms'],['m/s → km/h','ms_kmh'],['mph → km/h','mph_kmh'],
+      ['N → kgf','n_kgf'],['kgf → N','kgf_n'],['lbf → N','lbf_n'],
+      ['Pa → bar','pa_bar'],['bar → Pa','bar_pa'],['psi → bar','psi_bar'],
+      ['°C → °F','c_f'],['°F → °C','f_c'],['°C → K','c_k'],
+      ['mm → in','mm_in'],['in → mm','in_mm'],['m → ft','m_ft'],
+      ['kg → lb','kg_lb'],['lb → kg','lb_kg'],
+      ['N·m → lb·ft','nm_lbft'],['lb·ft → N·m','lbft_nm'],
+      ['kW → hp','kw_hp'],['hp → kW','hp_kw'],
+    ]
+  },
+];
+
+const fsRules = [
+  {q:'Aký je minimálny ground clearance?', a:'Minimálny ground clearance je <b>30 mm</b> v každom bode vozidla pri plne zaťaženom vozidle s vodičom 77 kg. Meranie sa vykonáva na rovnom povrchu. Toto platí pre statickú aj dynamickú kontrolu.', tags:['Podvozok','Geometria']},
+  {q:'Aké materiály sú povolené na main hoop?', a:'Main hoop musí byť z ocele s minimálnou medzou klzu 305 MPa. <b>E355+A (1.0580) je zakázaný</b> pre hlavný oblúk bezpečnosti. Povolené sú napríklad 25CrMo4 alebo S355. Minimálna hrúbka steny je 2.0 mm pre oceľ a vonkajší priemer min. 25.4 mm.', tags:['Bezpečnosť','Materiály']},
+  {q:'Aké sú požiadavky na safety wire (bezpečnostný drôt)?', a:'Bezpečnostný drôt (safety wire) musí zabezpečiť, že kritické spojenia (skrutky, matice) sa nemôžu uvoľniť. <b>Maximálna voľnosť (free play) je 5 mm</b>. Drôt sa inštaluje tak, aby ťahová sila drôtu vždy pôsobila v smere uťahovania.', tags:['Bezpečnosť','Spoje']},
+  {q:'Aké sú požiadavky na brzdový systém?', a:'Brzdový systém musí byť <b>dvojokruhový (dual circuit)</b> — pri zlyhaní jedného okruhu musí druhý stále brzdiť aspoň na dvoch kolesách. Vozidlo musí mať BSPD (Brake System Plausibility Device) pre EV. Brzdový pedál musí vydržať silu <b>2 kN</b> bez deformácie. Všetky 4 kolesá musia mať brzdy.', tags:['Brzdy','Bezpečnosť']},
+  {q:'Čo je BSPD a kedy sa aktivuje?', a:'BSPD = <b>Brake System Plausibility Device</b>. Aktivuje sa, ak sú súčasne stlačené brzdy (≥30 bar) a plynový pedál (≥25% rozsahu) po dobu >0.5 s. BSPD musí otvoriť shutdown circuit a zostať otvorený až do manuálneho resetu. Je povinný pre EV.', tags:['Bezpečnosť','EV']},
+  {q:'Ako funguje shutdown circuit?', a:'Shutdown circuit je sériovo zapojený bezpečnostný okruh. Ak sa <b>akýkoľvek prvok otvorí</b>, celý tractive system sa odpojí. Obsahuje: cockpit master switch, BOTS (brake over-travel switch), BSPD, IMD (insulation monitoring device), BMS, TSMS, a ďalšie. Napätie v okruhu je typicky 12V DC.', tags:['Bezpečnosť','EV']},
+  {q:'Aké sú maximálne napätia v tractive system?', a:'Maximálne napätie TS nesmie presiahnuť <b>600 V DC</b> alebo <b>253 V AC RMS</b>. Akumulátor musí mať galvanické oddelenie od chassis (minimálne 500 Ω/V). IMD musí monitorovať izoláciu a otvoriť shutdown circuit pri poklese pod limit.', tags:['EV','Napätie']},
+  {q:'Čo je TSAC a aké sú pravidlá?', a:'TSAC = <b>Tractive System Active Circuit</b>. Indikuje, že TS je pod napätím. Červená LED (min. 24 LED alebo ekvivalent) musí svietiť, keď je TS aktívny. Musí byť viditeľná z 3 m za denného svetla. TSAL (Tractive System Active Light) musí byť na oboch stranách vozidla.', tags:['EV','Bezpečnosť']},
+  {q:'Aké sú pravidlá pre riadenie (steering)?', a:'Riadenie musí byť mechanické s priamym spojením medzi volantom a kolesami — <b>reťazový prevod (chain drive) nie je povolený</b> pre steering. Volant musí mať priemer min. 250 mm. Quick-release musí umožniť odpojenie volantu do 5 s. Maximálny uhol natočenia kolies musí byť limitovaný mechanickým dorazom.', tags:['Podvozok','Riadenie']},
+  {q:'Aký je test brzdového pedálu?', a:'Brzdový pedál musí vydržať silu <b>2 kN</b> aplikovanú na čelo (face) pedálu bez trvalej deformácie, nadmerného ohybu alebo zlyhania. Pad pedálu musí mať anti-slip povrch. Pedál nesmie prechádzať cez firewall.', tags:['Brzdy','Test']},
+  {q:'Aké sú veľkosti restriktorov?', a:'Pre spaľovacie motory (IC): <b>20 mm restrictor</b> pre benzínový motor (E85 alebo benzín 98). Všetok vzduch pre motor musí prejsť cez restrictor. Pre EV: žiadny restrictor, ale je limit 80 kW kontinuálneho výkonu z akumulátora.', tags:['Motor','Pravidlá']},
+  {q:'Aký je minimálny rázvor (wheelbase)?', a:'Minimálny rázvor je <b>1525 mm</b> (vzdialenosť medzi stredmi prednej a zadnej nápravy). Minimálny rozchod (track) nie je explicitne definovaný, ale musí byť menší ako rázvor. Väčší rozchod = lepšia stabilita.', tags:['Podvozok','Geometria']},
+  {q:'Aké sú disciplíny na FS súťaži?', a:'<b>Statické:</b> Business Plan Presentation (75 bodov), Cost & Manufacturing (100 bodov), Engineering Design (150 bodov).<br><b>Dynamické:</b> Acceleration (100 bodov), Skidpad (75 bodov), Autocross (125 bodov), Endurance (275 bodov), Fuel/Energy Efficiency (100 bodov).<br>Celkovo <b>1000 bodov</b>.', tags:['Súťaž','Disciplíny']},
+  {q:'Aké sú pravidlá pre akumulátor EV?', a:'Maximálne napätie <b>600 V DC</b>. Kapacita energie max. <b>7.0 kWh</b>. Musí mať BMS (Battery Management System) monitorujúci napätie každej celly, teplotu, a prúd. Pri prekročení limitov BMS otvorí shutdown circuit. AIR (Accumulator Isolation Relays) musia byť normálne otvorené.', tags:['EV','Akumulátor']},
+  {q:'Aké sú požiadavky na firewall?', a:'Firewall musí úplne oddeliť priestor vodiča od motora/akumulátora. Musí byť z nehorľavého materiálu (oceľ min. 0.4 mm, hliník min. 0.6 mm, alebo ekvivalent). Žiadne otvory okrem priechodiek s tesnením. Musí vydržať teplotu bez deformácie.', tags:['Bezpečnosť','Konštrukcia']},
+  {q:'Čo je scrutineering (technická kontrola)?', a:'Technická kontrola zahŕňa: <b>Mechanical inspection</b> (kontrola všetkých systémov), <b>Electrical inspection</b> (pre EV), <b>Tilt test</b> (60° náklon bez úniku tekutín), <b>Rain test</b> (pre EV), <b>Brake test</b> (4 kolesá musia zablokovať), <b>Noise test</b> (max 110 dB pri IC).', tags:['Súťaž','Kontrola']},
+  {q:'Aké sú pravidlá pre driver harness (bezpečnostné pásy)?', a:'Minimálne <b>5-bodové</b> alebo 6-bodové pásy (SFI 16.1 alebo FIA homologácia). Maximálny vek 5 rokov od dátumu výroby (2 roky pre SFI). Antisubmarine pás je povinný. Pásy musia byť pripevnené k rámu alebo k štruktúre schválenej v SES.', tags:['Bezpečnosť','Vodič']},
+  {q:'Aký je maximálny hluk pre IC vozidlá?', a:'Maximálna hladina hluku je <b>110 dB(C)</b> meraná vo vzdialenosti 0.5 m od výfuku pod uhlom 45° pri idle otáčkach. Ak vozidlo presiahne limit, nedostane povolenie jazdiť. Viacero tímov používa výfukové tlmiče.', tags:['Motor','Pravidlá']},
+  {q:'Aké sú pravidlá pre rain test (EV)?', a:'EV vozidlá musia prejsť rain testom kde sa na vozidlo aplikuje voda po dobu <b>2 minúty</b>. IMD (Insulation Monitoring Device) nesmie spustiť alarm. Izolácia musí zostať nad 500 Ω/V. Test sa vykonáva s TS pod napätím.', tags:['EV','Test']},
+  {q:'Aké sú pravidlá pre tilt test?', a:'Vozidlo sa nakloní na <b>60°</b> na obe strany. Nesmie dôjsť k úniku žiadnej tekutiny (palivo, olej, chladiaca kvapalina). Vodič musí byť vo vozidle pripútaný. Pre EV: navyše kontrola stability HV systému.', tags:['Súťaž','Test']},
+  {q:'Aké sú hmotnostné kategórie pre vodičov?', a:'Minimálna hmotnosť vodiča pre výpočty je <b>68 kg</b>. Ak vodič váži menej, pridáva sa ballast na sedačku. Pre ergonómiu: cockpit musí umožniť výstup do <b>5 sekúnd</b> bez odopnutia volantu (s quick-release do 5s celkom).', tags:['Vodič','Pravidlá']},
+  {q:'Čo je Percy template test?', a:'Percy template simuluje 95. percentil mužskej populácie. Šablóna sa vloží do kokpitu zhora a musí prejsť pod hlavný oblúk (main hoop) s dostatočným priestorom. Zabezpečuje, že väčšina vodičov sa pohodlne zmestí do vozidla.', tags:['Podvozok','Test']},
+  {q:'Aké sú pravidlá pre impact attenuator?', a:'Impact attenuator musí absorbovať minimálne <b>7350 J</b> energie pri náraze rýchlosťou 7 m/s. Maximálna priemerná decelerácia nesmie presiahnuť 20 g a špičková 40 g. Musí byť pripevnený k prednej časti rámu a chrániť nohy vodiča.', tags:['Bezpečnosť','Konštrukcia']},
+  {q:'Aké sú pravidlá pre hlavné vypínače?', a:'Vozidlo musí mať <b>2 hlavné vypínače</b>: jeden pre vodič (cockpit) a jeden prístupný zvonku (na pravej strane). Musia byť jasne označené červeným trojuholníkom s bleskom (EV) alebo iskrou (IC). Musia odpájať všetky elektrické okruhy vrátane TS.', tags:['Bezpečnosť','Elektrické']},
+];
+
+// ===================== STATE =====================
+
+let activeTab = 'calc';
+let activeCategory = 'kin';
+let fieldValues = {};
+let textValues = {};
+let convPair = '';
+let calcResult = null;
+
+// ===================== CALCULATION ENGINE (faithful port of doCalculation) =====================
+
+function doCalculation(catId, type, vals, extraText) {
+  const g = 9.80665;
+  const R_gas = 8.314;
+  const pi = Math.PI;
+  let result = 0;
+  let unit = '';
+  let formula = '';
+  let steps = '';
+
+  const v = (id) => vals[id] || 0;
+
+  // KINEMATIKA
+  if (catId === 'kin') {
+    if (type === 'vel') { result = v('v0') + v('a') * v('t'); unit = 'm/s'; formula = 'v = v₀ + at'; steps = `v = ${v('v0')} + ${v('a')}×${v('t')}`; }
+    else if (type === 'disp') { result = v('v0') * v('t') + 0.5 * v('a') * v('t') ** 2; unit = 'm'; formula = 's = v₀t + ½at²'; steps = `s = ${v('v0')}×${v('t')} + ½×${v('a')}×${v('t')}²`; }
+    else if (type === 'vNoT') { result = Math.sqrt(Math.abs(v('v0') ** 2 + 2 * v('a') * v('s'))); unit = 'm/s'; formula = 'v = √(v₀²+2as)'; steps = `v = √(${v('v0')}² + 2×${v('a')}×${v('s')})`; }
+    else if (type === 'time') { result = v('a') !== 0 ? -v('v0') / v('a') : 0; unit = 's'; formula = 't = -v₀/a'; steps = `t = -${v('v0')}/${v('a')}`; }
+    else if (type === 'acc') { result = v('t') !== 0 ? (v('vf') - v('v0')) / v('t') : 0; unit = 'm/s²'; formula = 'a = (v-v₀)/t'; steps = `a = (${v('vf')}-${v('v0')})/${v('t')}`; }
+    else if (type === 'fall') { result = 0.5 * g * v('t') ** 2; unit = 'm'; formula = 'h = ½gt²'; steps = `h = ½×${g.toFixed(3)}×${v('t')}²`; }
+    else if (type === 'projR') { const ang = v('ang') * pi / 180; result = (v('v0') ** 2 * Math.sin(2 * ang)) / g; unit = 'm'; formula = 'R = v₀²sin(2θ)/g'; steps = `R = ${v('v0')}²×sin(2×${v('ang')}°)/${g.toFixed(3)}`; }
+    else if (type === 'projH') { const ang = v('ang') * pi / 180; result = (v('v0') ** 2 * Math.sin(ang) ** 2) / (2 * g); unit = 'm'; formula = 'H = v₀²sin²θ/(2g)'; steps = `H = ${v('v0')}²×sin²(${v('ang')}°)/(2×${g.toFixed(3)})`; }
+  }
+  // DYNAMIKA
+  else if (catId === 'dyn') {
+    if (type === 'force') { result = v('m') * v('a'); unit = 'N'; formula = 'F = ma'; steps = `F = ${v('m')}×${v('a')}`; }
+    else if (type === 'mom') { result = v('m') * v('vf'); unit = 'kg·m/s'; formula = 'p = mv'; steps = `p = ${v('m')}×${v('vf')}`; }
+    else if (type === 'imp') { result = v('F') * v('dt'); unit = 'N·s'; formula = 'J = FΔt'; steps = `J = ${v('F')}×${v('dt')}`; }
+    else if (type === 'fric') { const N = v('m') * g; result = v('mu') * N; unit = 'N'; formula = 'Ff = μmg'; steps = `Ff = ${v('mu')}×${v('m')}×${g.toFixed(3)}`; }
+    else if (type === 'incl') { const ang = v('ang') * pi / 180; const Fg = v('m') * g; result = Fg * Math.sin(ang); unit = 'N'; formula = 'F∥ = mg·sin θ'; steps = `F∥ = ${v('m')}×${g.toFixed(3)}×sin(${v('ang')}°)\nF⊥ = ${v('m')}×${g.toFixed(3)}×cos(${v('ang')}°) = ${(Fg * Math.cos(ang)).toFixed(4)} N`; }
+    else if (type === 'centr') { result = v('m') * v('vf') ** 2 / (v('a') || 1); unit = 'N'; formula = 'F = mv²/r'; steps = `F = ${v('m')}×${v('vf')}²/${v('a')}`; }
+    else if (type === 'grav') { const G = 6.674e-11; result = G * v('m') * v('F') / (v('a') || 1) ** 2; unit = 'N'; formula = 'F = GMm/r²'; steps = `F = 6.674×10⁻¹¹×${v('m')}×${v('F')}/${v('a')}²`; }
+  }
+  // STATIKA
+  else if (catId === 'stat') {
+    if (type === 'moment') { const ang = v('ang') * pi / 180; result = v('F') * v('d') * Math.sin(ang); unit = 'N·m'; formula = 'M = F×d×sin θ'; steps = `M = ${v('F')}×${v('d')}×sin(${v('ang')}°)`; }
+    else if (type === 'couple') { result = v('F') * v('d'); unit = 'N·m'; formula = 'M = F×d'; steps = `M = ${v('F')}×${v('d')}`; }
+    else if (type === 'beam2') {
+      const L = v('L'); const a_pos = v('a_pos'); const F_val = v('F');
+      const Rb = L > 0 ? (F_val * a_pos) / L : 0;
+      const Ra = F_val - Rb;
+      result = Ra; unit = 'N'; formula = 'ΣM=0'; steps = `Ra = F×(L-a)/L = ${F_val}×(${L}-${a_pos})/${L} = ${Ra.toFixed(4)} N\nRb = F×a/L = ${F_val}×${a_pos}/${L} = ${Rb.toFixed(4)} N`;
+    }
+    else if (type === 'cant') { result = v('F') * v('L'); unit = 'N·m'; formula = 'M = F×L'; steps = `M_max = ${v('F')}×${v('L')}`; }
+    else if (type === 'truss') { const ang = v('ang') * pi / 180; result = ang > 0 ? v('F') / Math.sin(ang) : v('F'); unit = 'N'; formula = 'F_prút = F/sin θ'; steps = `F_prút = ${v('F')}/sin(${v('ang')}°)`; }
+  }
+  // KRUHOVÝ POHYB
+  else if (catId === 'circ') {
+    if (type === 'omega') { result = 2 * pi * v('n') / 60; unit = 'rad/s'; formula = 'ω = 2πn/60'; steps = `ω = 2π×${v('n')}/60`; }
+    else if (type === 'linV') { const omega = v('omega') || (2 * pi * v('n') / 60); result = omega * v('r'); unit = 'm/s'; formula = 'v = ωr'; steps = `v = ${omega.toFixed(4)}×${v('r')}`; }
+    else if (type === 'centA') { result = v('vf') ** 2 / (v('r') || 1); unit = 'm/s²'; formula = 'ac = v²/r'; steps = `ac = ${v('vf')}²/${v('r')}`; }
+    else if (type === 'period') { const omega = v('omega') || (2 * pi * v('n') / 60); result = omega > 0 ? 2 * pi / omega : 0; unit = 's'; formula = 'T = 2π/ω'; steps = `T = 2π/${omega.toFixed(4)}`; }
+    else if (type === 'bank') { result = Math.atan(v('vf') ** 2 / ((v('r') || 1) * g)) * 180 / pi; unit = '°'; formula = 'θ = arctan(v²/rg)'; steps = `θ = arctan(${v('vf')}²/(${v('r')}×${g.toFixed(3)}))`; }
+  }
+  // ENERGIA & PRÁCA
+  else if (catId === 'ene') {
+    if (type === 'kinE') { result = 0.5 * v('m') * v('vf') ** 2; unit = 'J'; formula = 'Ek = ½mv²'; steps = `Ek = ½×${v('m')}×${v('vf')}²`; }
+    else if (type === 'potE') { result = v('m') * g * v('h'); unit = 'J'; formula = 'Ep = mgh'; steps = `Ep = ${v('m')}×${g.toFixed(3)}×${v('h')}`; }
+    else if (type === 'work') { const ang = v('ang') * pi / 180; result = v('F') * v('s') * Math.cos(ang); unit = 'J'; formula = 'W = Fs cos θ'; steps = `W = ${v('F')}×${v('s')}×cos(${v('ang')}°)`; }
+    else if (type === 'power') { result = v('t') > 0 ? (v('F') * v('s')) / v('t') : 0; unit = 'W'; formula = 'P = Fs/t'; steps = `P = ${v('F')}×${v('s')}/${v('t')}`; }
+    else if (type === 'eff') { const Pin = v('P'); const Pout = Pin * v('eff') / 100; result = Pout; unit = 'kW'; formula = 'P_out = P_in × η'; steps = `P_out = ${Pin}×${v('eff')}%`; }
+    else if (type === 'spring') { result = 0.5 * v('k') * v('x') ** 2; unit = 'J'; formula = 'E = ½kx²'; steps = `E = ½×${v('k')}×${v('x')}²`; }
+    else if (type === 'regen') { const Ek = 0.5 * v('m') * v('vf') ** 2; result = Ek * v('eff') / 100; unit = 'J'; formula = 'E_regen = ½mv² × η'; steps = `Ek = ½×${v('m')}×${v('vf')}² = ${Ek.toFixed(2)} J\nE_regen = ${Ek.toFixed(2)}×${v('eff')}%`; }
+  }
+  // TERMODYNAMIKA
+  else if (catId === 'therm') {
+    if (type === 'heat') { result = v('m') * v('c') * v('dT'); unit = 'J'; formula = 'Q = mcΔT'; steps = `Q = ${v('m')}×${v('c')}×${v('dT')}`; }
+    else if (type === 'ideal') { result = v('n_mol') > 0 ? (v('n_mol') * R_gas * v('dT')) / (v('Vol') || 1) : v('P_pres') * v('Vol') / (R_gas * (v('dT') || 1)); unit = v('n_mol') > 0 ? 'Pa' : 'mol'; formula = 'PV = nRT'; steps = `PV = ${v('n_mol')}×${R_gas}×${v('dT')}`; }
+    else if (type === 'carnot') { result = v('Th') > 0 ? (1 - v('Tc') / v('Th')) * 100 : 0; unit = '%'; formula = 'η = 1 - Tc/Th'; steps = `η = 1 - ${v('Tc')}/${v('Th')}`; }
+    else if (type === 'conduct') { result = v('k_cond') * v('A') * v('dT') / (v('d') || 1); unit = 'W'; formula = 'Q = kAΔT/d'; steps = `Q = ${v('k_cond')}×${v('A')}×${v('dT')}/${v('d')}`; }
+    else if (type === 'convect') { const h_conv = v('k_cond'); result = h_conv * v('A') * v('dT'); unit = 'W'; formula = 'Q = hAΔT'; steps = `Q = ${h_conv}×${v('A')}×${v('dT')}`; }
+  }
+  // ELEKTROTECHNIKA
+  else if (catId === 'ele') {
+    if (type === 'ohm_v') { result = v('I') * v('R'); unit = 'V'; formula = 'V = IR'; steps = `V = ${v('I')}×${v('R')}`; }
+    else if (type === 'ohm_i') { result = v('R') > 0 ? v('V') / v('R') : 0; unit = 'A'; formula = 'I = V/R'; steps = `I = ${v('V')}/${v('R')}`; }
+    else if (type === 'ohm_r') { result = v('I') > 0 ? v('V') / v('I') : 0; unit = 'Ω'; formula = 'R = V/I'; steps = `R = ${v('V')}/${v('I')}`; }
+    else if (type === 'pow') { result = v('V') * v('I'); unit = 'W'; formula = 'P = VI'; steps = `P = ${v('V')}×${v('I')}`; }
+    else if (type === 'pow_r') { result = v('I') ** 2 * v('R'); unit = 'W'; formula = 'P = I²R'; steps = `P = ${v('I')}²×${v('R')}`; }
+    else if (type === 'energy') { result = v('P') * 1000 * v('t'); unit = 'J'; formula = 'E = Pt'; steps = `E = ${v('P')}kW×${v('t')}`; }
+    else if (type === 'cap') { result = 0.5 * v('C') * v('V') ** 2; unit = 'J'; formula = 'E = ½CV²'; steps = `E = ½×${v('C')}×${v('V')}²`; }
+    else if (type === 'ind') { result = 0.5 * v('L_ind') * v('I') ** 2; unit = 'J'; formula = 'E = ½LI²'; steps = `E = ½×${v('L_ind')}×${v('I')}²`; }
+    else if (type === 'motor') { const omega = 2 * pi * v('n') / 60; result = omega > 0 ? v('V') / omega : 0; unit = 'V·s/rad'; formula = 'kE = V/ω'; steps = `ω = 2π×${v('n')}/60 = ${omega.toFixed(4)}\nkE = ${v('V')}/${omega.toFixed(4)}`; }
+    else if (type === 'serR') { result = v('R') + v('R2') + v('R3'); unit = 'Ω'; formula = 'R = R₁+R₂+R₃'; steps = `R = ${v('R')}+${v('R2')}+${v('R3')}`; }
+    else if (type === 'parR') { const sum = (v('R') > 0 ? 1 / v('R') : 0) + (v('R2') > 0 ? 1 / v('R2') : 0) + (v('R3') > 0 ? 1 / v('R3') : 0); result = sum > 0 ? 1 / sum : 0; unit = 'Ω'; formula = '1/R = 1/R₁+1/R₂+1/R₃'; steps = `1/R = 1/${v('R')}+1/${v('R2')}+1/${v('R3')}`; }
+    else if (type === 'rc') { result = v('R') * v('C'); unit = 's'; formula = 'τ = RC'; steps = `τ = ${v('R')}×${v('C')}`; }
+    else if (type === 'reson') { const LC = v('L_ind') * v('C'); result = LC > 0 ? 1 / (2 * pi * Math.sqrt(LC)) : 0; unit = 'Hz'; formula = 'f = 1/(2π√(LC))'; steps = `f = 1/(2π×√(${v('L_ind')}×${v('C')}))`; }
+  }
+  // HYDRAULIKA
+  else if (catId === 'hyd') {
+    if (type === 'pres') { result = v('A') > 0 ? v('F') / v('A') : 0; unit = 'Pa'; formula = 'p = F/A'; steps = `p = ${v('F')}/${v('A')}`; }
+    else if (type === 'force') { result = v('P_pres') * v('A'); unit = 'N'; formula = 'F = pA'; steps = `F = ${v('P_pres')}×${v('A')}`; }
+    else if (type === 'vel') { result = v('A') > 0 ? v('Q') / v('A') : 0; unit = 'm/s'; formula = 'v = Q/A'; steps = `v = ${v('Q')}/${v('A')}`; }
+    else if (type === 'flow') { result = v('A') * v('vf'); unit = 'm³/s'; formula = 'Q = Av'; steps = `Q = ${v('A')}×${v('vf')}`; }
+    else if (type === 'powH') { result = v('P_pres') * v('Q'); unit = 'W'; formula = 'P = pQ'; steps = `P = ${v('P_pres')}×${v('Q')}`; }
+    else if (type === 'pascal') { const F2 = v('A2') > 0 && v('A') > 0 ? v('F') * v('A2') / v('A') : 0; result = F2; unit = 'N'; formula = 'F₂ = F₁×A₂/A₁'; steps = `F₂ = ${v('F')}×${v('A2')}/${v('A')}`; }
+    else if (type === 'bernoulli') { const p1 = v('P_pres'); const v1 = v('vf'); const rho = v('rho'); const h1 = v('h'); result = p1 + 0.5 * rho * v1 ** 2 + rho * g * h1; unit = 'Pa'; formula = 'p + ½ρv² + ρgh = const'; steps = `p_total = ${p1} + ½×${rho}×${v1}² + ${rho}×${g.toFixed(3)}×${h1}`; }
+  }
+  // PEVNOSŤ MATERIÁLOV
+  else if (catId === 'mat') {
+    if (type === 'stress') { result = v('A') > 0 ? v('F') / v('A') : 0; unit = 'Pa'; formula = 'σ = F/A'; steps = `σ = ${v('F')}/${v('A')}`; }
+    else if (type === 'strain') { result = v('L_len') > 0 ? v('dL') / v('L_len') : 0; unit = '-'; formula = 'ε = ΔL/L'; steps = `ε = ${v('dL')}/${v('L_len')}`; }
+    else if (type === 'hooke') { result = v('E_mod') * 1e9 * (v('L_len') > 0 ? v('dL') / v('L_len') : 0); unit = 'Pa'; formula = 'σ = Eε'; steps = `ε = ${v('dL')}/${v('L_len')}\nσ = ${v('E_mod')}×10⁹×ε`; }
+    else if (type === 'bend') { result = v('I_inert') > 0 ? v('M_bend') * v('y_dist') / v('I_inert') : 0; unit = 'Pa'; formula = 'σ = My/I'; steps = `σ = ${v('M_bend')}×${v('y_dist')}/${v('I_inert')}`; }
+    else if (type === 'shear') { result = v('A') > 0 ? v('F') / v('A') : 0; unit = 'Pa'; formula = 'τ = F/A'; steps = `τ = ${v('F')}/${v('A')}`; }
+    else if (type === 'torsion') { result = v('J') > 0 ? v('T_torq') * v('r') / v('J') : 0; unit = 'Pa'; formula = 'τ = Tr/J'; steps = `τ = ${v('T_torq')}×${v('r')}/${v('J')}`; }
+    else if (type === 'deflect') { const E = v('E_mod') * 1e9; const I = v('I_inert'); const L = v('L_len'); result = E > 0 && I > 0 ? (v('F') * L ** 3) / (48 * E * I) : 0; unit = 'm'; formula = 'δ = FL³/(48EI)'; steps = `δ = ${v('F')}×${v('L_len')}³/(48×${v('E_mod')}×10⁹×${v('I_inert')})`; }
+    else if (type === 'safety') { const sigma = v('A') > 0 ? v('F') / v('A') : 0; result = sigma > 0 ? (v('E_mod') * 1e6) / sigma : 0; unit = '-'; formula = 'n = σ_yield/σ'; steps = `σ = F/A = ${sigma.toFixed(4)} Pa\nn = ${v('E_mod')} MPa / σ`; }
+  }
+  // VIBRÁCIE
+  else if (catId === 'vib') {
+    if (type === 'natF') { const km = v('k') / (v('m') || 1); result = Math.sqrt(km) / (2 * pi); unit = 'Hz'; formula = 'f = √(k/m)/(2π)'; steps = `ω_n = √(${v('k')}/${v('m')}) = ${Math.sqrt(km).toFixed(4)} rad/s\nf = ${Math.sqrt(km).toFixed(4)}/(2π)`; }
+    else if (type === 'damped') { const wn = Math.sqrt(v('k') / (v('m') || 1)); const zeta = v('c_damp') / (2 * Math.sqrt(v('k') * (v('m') || 1))); const wd = wn * Math.sqrt(Math.abs(1 - zeta ** 2)); result = wd / (2 * pi); unit = 'Hz'; formula = 'ω_d = ω_n√(1-ζ²)'; steps = `ζ = ${zeta.toFixed(4)}\nω_n = ${wn.toFixed(4)} rad/s\nω_d = ${wd.toFixed(4)} rad/s`; }
+    else if (type === 'crit') { result = 2 * Math.sqrt(v('k') * (v('m') || 1)); unit = 'N·s/m'; formula = 'c_cr = 2√(km)'; steps = `c_cr = 2×√(${v('k')}×${v('m')})`; }
+    else if (type === 'transm') { const wn = Math.sqrt(v('k') / (v('m') || 1)); const r_ratio = v('omega') / (wn || 1); const zeta = v('c_damp') / (2 * Math.sqrt(v('k') * (v('m') || 1))); result = Math.sqrt((1 + (2 * zeta * r_ratio) ** 2) / ((1 - r_ratio ** 2) ** 2 + (2 * zeta * r_ratio) ** 2)); unit = '-'; formula = 'TR = √(...)'; steps = `r = ω/ω_n = ${r_ratio.toFixed(4)}\nζ = ${zeta.toFixed(4)}`; }
+    else if (type === 'springFric') {
+      const k_val = v('k') || 1;
+      const m_val = v('m') || 1;
+      const mu_val = v('mu');
+      const x0_val = v('x0');
+      const Ff = mu_val * m_val * g;
+      const E_initial = 0.5 * k_val * x0_val * x0_val;
+      const delta = 2 * Ff / k_val;
+      if (delta > 0) {
+        const n_half = Math.floor(x0_val / delta);
+        const x_final = x0_val - n_half * delta;
+        const E_final = 0.5 * k_val * x_final * x_final;
+        result = E_initial - E_final;
+      } else {
+        result = 0;
+      }
+      unit = 'J'; formula = 'E_lost = E_initial - E_final';
+      steps = `E_počiatočná = ½kx₀² = ½×${v('k')}×${v('x0')}² = ${E_initial.toFixed(4)} J\nF_trenie = μmg = ${mu_val}×${m_val}×${g.toFixed(3)} = ${Ff.toFixed(4)} N\nΔ amplitúda za pol-cyklus = 2Ff/k = ${(2*Ff/k_val).toFixed(6)} m\nE_stratená trením = ${result.toFixed(2)} J`;
+    }
+  }
+  // PREVODOVKY
+  else if (catId === 'gear') {
+    if (type === 'ratio') { result = v('z1') > 0 ? v('z2') / v('z1') : 0; unit = '-'; formula = 'i = z₂/z₁'; steps = `i = ${v('z2')}/${v('z1')}`; }
+    else if (type === 'speed') { const i = v('z1') > 0 ? v('z2') / v('z1') : 1; result = i > 0 ? v('n') / i : 0; unit = 'rpm'; formula = 'n₂ = n₁/i'; steps = `i = ${v('z2')}/${v('z1')} = ${i.toFixed(4)}\nn₂ = ${v('n')}/${i.toFixed(4)}`; }
+    else if (type === 'torque') { const i = v('z1') > 0 ? v('z2') / v('z1') : 1; result = v('T') * i * v('eff') / 100; unit = 'N·m'; formula = 'T₂ = T₁×i×η'; steps = `i = ${i.toFixed(4)}\nT₂ = ${v('T')}×${i.toFixed(4)}×${v('eff')}%`; }
+    else if (type === 'chain') { const i = v('d1') > 0 ? v('d2') / v('d1') : 1; result = v('n') > 0 ? v('n') / i : 0; unit = 'rpm'; formula = 'i = d₂/d₁'; steps = `i = ${v('d2')}/${v('d1')} = ${i.toFixed(4)}\nn₂ = ${v('n')}/${i.toFixed(4)}`; }
+    else if (type === 'belt') { const i = v('d1') > 0 ? v('d2') / v('d1') : 1; result = v('n') > 0 ? v('n') / i : 0; unit = 'rpm'; formula = 'i = D₂/D₁'; steps = `i = ${v('d2')}/${v('d1')} = ${i.toFixed(4)}\nn₂ = ${v('n')}/${i.toFixed(4)}`; }
+  }
+  // PODVOZOK & AERO
+  else if (catId === 'aero') {
+    if (type === 'drag') { result = 0.5 * v('rho') * v('vf') ** 2 * v('Cd') * v('A'); unit = 'N'; formula = 'Fd = ½ρv²CdA'; steps = `Fd = ½×${v('rho')}×${v('vf')}²×${v('Cd')}×${v('A')}`; }
+    else if (type === 'lift') { result = 0.5 * v('rho') * v('vf') ** 2 * v('Cl') * v('A'); unit = 'N'; formula = 'Fl = ½ρv²ClA'; steps = `Fl = ½×${v('rho')}×${v('vf')}²×${v('Cl')}×${v('A')}`; }
+    else if (type === 'roll') { result = v('Crr') * v('m') * g; unit = 'N'; formula = 'Fr = Crr×mg'; steps = `Fr = ${v('Crr')}×${v('m')}×${g.toFixed(3)}`; }
+    else if (type === 'topsp') { const P_w = v('P') * 1000; const rho = v('rho'); const Cd = v('Cd'); const A_area = v('A'); const denom = 0.5 * rho * Cd * A_area; result = denom > 0 ? Math.cbrt(P_w / denom) : 0; unit = 'm/s'; formula = 'v = ³√(P/(½ρCdA))'; steps = `v = ³√(${P_w}/(½×${rho}×${Cd}×${A_area}))`; }
+    else if (type === 'lat') { result = v('m') * v('vf') ** 2 / (v('A') || 1); unit = 'N'; formula = 'F_lat = mv²/r'; steps = `F_lat = ${v('m')}×${v('vf')}²/${v('A')}`; }
+    else if (type === 'weight') { const wb = v('wb'); const cg_dist = v('cg'); const totalW = v('m') * g; const Rf = wb > 0 ? totalW * (wb - cg_dist) / wb : 0; const Rr = totalW - Rf; result = wb > 0 ? (Rf / totalW) * 100 : 0; unit = '%'; formula = 'Rozloženie F/R'; steps = `W = ${v('m')}×${g.toFixed(3)} = ${totalW.toFixed(2)} N\nPredná: ${Rf.toFixed(2)} N (${((Rf / totalW) * 100).toFixed(1)}%)\nZadná: ${Rr.toFixed(2)} N (${((Rr / totalW) * 100).toFixed(1)}%)`; }
+  }
+  // MOTOR
+  else if (catId === 'motor') {
+    if (type === 'displ') {
+      const d_mm = v('bore');
+      const s_mm = v('stroke');
+      result = (pi / 4) * (d_mm ** 2) * s_mm / 1000;
+      unit = 'cm³'; formula = 'V = (π/4)×d²×stroke';
+      steps = `V = (π/4)×${d_mm}²×${s_mm} mm³\nV = ${(pi/4 * d_mm**2 * s_mm).toFixed(2)} mm³\nV = ${result.toFixed(2)} cm³`;
+    }
+    else if (type === 'displTotal') {
+      const d_mm = v('bore');
+      const s_mm = v('stroke');
+      const n_cyl = v('n_cyl') || 1;
+      const V_one = (pi / 4) * (d_mm ** 2) * s_mm / 1000;
+      result = V_one * n_cyl;
+      unit = 'cm³'; formula = 'V_total = V×n_cyl';
+      steps = `V_1valec = (π/4)×${d_mm}²×${s_mm}/1000 = ${V_one.toFixed(2)} cm³\nV_total = ${V_one.toFixed(2)}×${n_cyl} = ${result.toFixed(2)} cm³`;
+    }
+    else if (type === 'compR') {
+      const d_mm = v('bore');
+      const s_mm = v('stroke');
+      const V_disp = (pi / 4) * (d_mm ** 2) * s_mm / 1000;
+      const Vc = v('Vc') || 1;
+      result = (V_disp + Vc) / Vc;
+      unit = ':1'; formula = 'CR = (V_d + V_c) / V_c';
+      steps = `V_zdvih = ${V_disp.toFixed(2)} cm³\nCR = (${V_disp.toFixed(2)} + ${Vc}) / ${Vc}`;
+    }
+    else if (type === 'meanPist') {
+      const s_m = v('stroke') / 1000;
+      const rpm = v('n');
+      result = 2 * s_m * rpm / 60;
+      unit = 'm/s'; formula = 'v_p = 2×stroke×n/60';
+      steps = `v_p = 2×${s_m.toFixed(4)}×${rpm}/60`;
+    }
+    else if (type === 'torquePow') {
+      const T_val = v('T');
+      const rpm = v('n');
+      const omega = 2 * pi * rpm / 60;
+      result = T_val * omega / 1000;
+      unit = 'kW'; formula = 'P = T×ω';
+      steps = `ω = 2π×${rpm}/60 = ${omega.toFixed(4)} rad/s\nP = ${T_val}×${omega.toFixed(4)} = ${(T_val*omega).toFixed(2)} W = ${result.toFixed(4)} kW`;
+    }
+    else if (type === 'bmep') {
+      const T_val = v('T');
+      const d_mm = v('bore');
+      const s_mm = v('stroke');
+      const n_cyl = v('n_cyl') || 1;
+      const V_d_m3 = (pi / 4) * (d_mm/1000) ** 2 * (s_mm/1000) * n_cyl;
+      result = V_d_m3 > 0 ? (4 * pi * T_val) / V_d_m3 / 1e6 : 0;
+      unit = 'MPa'; formula = 'BMEP = 4πT/V_d';
+      steps = `V_d = ${(V_d_m3*1e6).toFixed(2)} cm³\nBMEP = 4π×${T_val}/${(V_d_m3*1e6).toFixed(2)}cm³`;
+    }
+  }
+  // SENDVIČ & KOMPOZITY
+  else if (catId === 'sandwich') {
+    if (type === 'sandwichBend') {
+      const b = v('b_width');
+      const h = v('h_total');
+      const t = v('t_skin');
+      const ti = v('t_inner') || t;
+      const M = v('M_bend') * 1000;
+      const hc = h - t - ti;
+      const I_val = (b / 12) * (h**3 - hc**3);
+      const y_max = h / 2;
+      result = I_val > 0 ? (M * y_max / I_val) : 0;
+      unit = 'MPa'; formula = 'σ = My/I';
+      steps = `h_core = ${h} - ${t} - ${ti} = ${hc.toFixed(2)} mm\nI = ${b}/12×(${h}³-${hc.toFixed(2)}³) = ${I_val.toFixed(2)} mm⁴\ny_max = ${h}/2 = ${y_max} mm\nM = ${v('M_bend')} N·m = ${M} N·mm\nσ = ${M}×${y_max}/${I_val.toFixed(2)} = ${result.toFixed(3)} MPa`;
+    }
+    else if (type === 'sandwichStiff') {
+      const b = v('b_width');
+      const h = v('h_total');
+      const t = v('t_skin');
+      const ti = v('t_inner') || t;
+      const E = v('E_mod');
+      const hc = h - t - ti;
+      const I_val = (b / 12) * (h**3 - hc**3);
+      const EI = E * 1000 * I_val;
+      result = EI / 1e6;
+      unit = 'N/mm'; formula = 'K = EI';
+      steps = `h_core = ${hc.toFixed(2)} mm\nI = ${b}/12×(${h}³-${hc.toFixed(2)}³) = ${I_val.toFixed(2)} mm⁴\nEI = ${E}×10³×${I_val.toFixed(2)} = ${EI.toFixed(2)} N·mm²\nK = ${result.toFixed(4)} N/mm`;
+    }
+    else if (type === 'compositeStress') {
+      const b = v('b_width');
+      const h = v('h_total');
+      const t = v('t_skin');
+      const ti = v('t_inner') || t;
+      const M = v('M_bend') * 1000;
+      const hc = h - t - ti;
+      const I_val = (b / 12) * (h**3 - hc**3);
+      result = I_val > 0 ? (M * (h/2) / I_val) : 0;
+      unit = 'MPa'; formula = 'σ_skin = M×(h/2)/I';
+      steps = `I = ${I_val.toFixed(2)} mm⁴\nσ = ${M}×${(h/2).toFixed(1)}/${I_val.toFixed(2)} = ${result.toFixed(3)} MPa`;
+    }
+    else if (type === 'secondMoment') {
+      const b = v('b_width');
+      const h = v('h_total');
+      result = b * h**3 / 12;
+      unit = 'mm⁴'; formula = 'I = bh³/12';
+      steps = `I = ${b}×${h}³/12 = ${result.toFixed(2)} mm⁴`;
+    }
+    else if (type === 'sectionMod') {
+      const b = v('b_width');
+      const h = v('h_total');
+      result = b * h**2 / 6;
+      unit = 'mm³'; formula = 'W = bh²/6';
+      steps = `W = ${b}×${h}²/6 = ${result.toFixed(2)} mm³`;
+    }
+  }
+  // ČÍSLA & LOGIKA
+  else if (catId === 'numser') {
+    if (type === 'hexToDec') {
+      const hexStr = (extraText && extraText.hexVal || '0').trim();
+      result = parseInt(hexStr, 16) || 0;
+      unit = ''; formula = 'hex → dec';
+      steps = `0x${hexStr.toUpperCase()} = ${result}`;
+    }
+    else if (type === 'decToHex') {
+      const dec = Math.round(v('decVal'));
+      const hexResult = dec.toString(16).toUpperCase();
+      result = dec;
+      unit = `(hex: ${hexResult})`; formula = 'dec → hex';
+      steps = `${dec} = 0x${hexResult}`;
+    }
+    else if (type === 'binToDec') {
+      const binStr = (extraText && extraText.binVal || '0').trim();
+      result = parseInt(binStr, 2) || 0;
+      unit = ''; formula = 'bin → dec';
+      steps = `0b${binStr} = ${result}`;
+    }
+    else if (type === 'decToBin') {
+      const dec = Math.round(v('decVal'));
+      const binResult = dec.toString(2);
+      result = dec;
+      unit = `(bin: ${binResult})`; formula = 'dec → bin';
+      steps = `${dec} = 0b${binResult}`;
+    }
+    else if (type === 'hexSeq') {
+      const seqStr = (extraText && extraText.hexVal || '').trim();
+      const parts = seqStr.split(/[,;\s]+/).filter(function(s) { return s.length > 0; });
+      const decVals = parts.map(function(p) { return parseInt(p, 16); });
+      if (decVals.length >= 2 && decVals.every(function(d) { return !isNaN(d); })) {
+        const diffs = [];
+        for (let i = 1; i < decVals.length; i++) diffs.push(decVals[i] - decVals[i-1]);
+        let nextDiff = diffs[diffs.length - 1];
+        if (diffs.length >= 3) {
+          const isAlternating = diffs.every(function(d, i) { return d === diffs[i % 2]; });
+          if (isAlternating && diffs.length >= 2) {
+            nextDiff = diffs[diffs.length % 2];
+          }
+        }
+        const allSame = diffs.every(function(d) { return d === diffs[0]; });
+        if (allSame) nextDiff = diffs[0];
+        const nextVal = decVals[decVals.length - 1] + nextDiff;
+        result = nextVal;
+        const nextHex = nextVal.toString(16).toUpperCase();
+        unit = `(hex: ${nextHex})`; formula = 'Hex sekvencia';
+        steps = `Sekvencia: ${parts.join(', ')}\nDecimálne: ${decVals.join(', ')}\nRozdiely: ${diffs.join(', ')}\nĎalšie: ${nextVal} = 0x${nextHex}`;
+      } else {
+        result = 0; unit = ''; formula = 'Hex sekvencia';
+        steps = 'Zadaj hex čísla oddelené čiarkami do poľa Hex (napr. E,13,16,1B,1E)';
+      }
+    }
+  }
+  // KONVERZIE
+  else if (catId === 'conv') {
+    const val = v('val');
+    const convMap = {
+      'kmh_ms': [1 / 3.6, 'm/s'], 'ms_kmh': [3.6, 'km/h'], 'mph_kmh': [1.60934, 'km/h'],
+      'n_kgf': [1 / 9.80665, 'kgf'], 'kgf_n': [9.80665, 'N'], 'lbf_n': [4.44822, 'N'],
+      'pa_bar': [1e-5, 'bar'], 'bar_pa': [1e5, 'Pa'], 'psi_bar': [0.0689476, 'bar'],
+      'c_f': [function(x) { return x * 9 / 5 + 32; }, '°F'], 'f_c': [function(x) { return (x - 32) * 5 / 9; }, '°C'], 'c_k': [function(x) { return x + 273.15; }, 'K'],
+      'mm_in': [1 / 25.4, 'in'], 'in_mm': [25.4, 'mm'], 'm_ft': [3.28084, 'ft'],
+      'kg_lb': [2.20462, 'lb'], 'lb_kg': [0.453592, 'kg'],
+      'nm_lbft': [0.737562, 'lb·ft'], 'lbft_nm': [1.35582, 'N·m'],
+      'kw_hp': [1.34102, 'hp'], 'hp_kw': [0.7457, 'kW'],
+    };
+    const conv = convMap[type];
+    if (conv) {
+      const factor = conv[0];
+      const u = conv[1];
+      result = typeof factor === 'function' ? factor(val) : val * factor;
+      unit = u;
+      formula = 'Konverzia';
+      steps = `${val} → ${result.toFixed(6)} ${u}`;
+    }
+  }
+
+  return {
+    value: result.toFixed(4) + ' ' + unit,
+    steps: formula + '\n  ' + steps + '\n  = ' + result.toFixed(4) + ' ' + unit
+  };
+}
+
+// ===================== RENDERING =====================
+
+function renderSidebar() {
+  const sb = document.getElementById('sidebar');
+  sb.innerHTML = categories.map(function(c) {
+    return '<button class="sidebar-btn' + (c.id === activeCategory ? ' active' : '') + '" onclick="selectCategory(\'' + c.id + '\')">' +
+      '<span class="icon">' + c.icon + '</span>' + c.name + '</button>';
+  }).join('');
+}
+
+function renderCalcPage() {
+  const cat = categories.find(function(c) { return c.id === activeCategory; });
+  const cfg = categoriesConfig.find(function(c) { return c.id === activeCategory; });
+  if (!cat || !cfg) return '';
+
+  let html = '<div class="calc-card">';
+  html += '<h2>' + cat.icon + ' ' + cat.name + '</h2>';
+  html += '<div class="info-box">' + cfg.info + '</div>';
+
+  // Type selector or conversion pair selector
+  if (activeCategory === 'conv' && cfg.conversions) {
+    const currentConv = convPair || cfg.conversions[0][1];
+    html += '<div class="form-row"><label>Konverzia</label><select id="convSelect" onchange="handleConvChange(this.value)">';
+    cfg.conversions.forEach(function(c) {
+      html += '<option value="' + c[1] + '"' + (c[1] === currentConv ? ' selected' : '') + '>' + c[0] + '</option>';
+    });
+    html += '</select></div>';
+  } else {
+    const currentType = getCalcType();
+    html += '<div class="form-row"><label>Typ výpočtu</label><select id="typeSelect" onchange="handleTypeChange(this.value)">';
+    cfg.types.forEach(function(t) {
+      html += '<option value="' + t.v + '"' + (t.v === currentType ? ' selected' : '') + '>' + t.l + '</option>';
+    });
+    html += '</select></div>';
+  }
+
+  // Fields
+  html += '<div class="form-grid">';
+  cfg.fields.forEach(function(f) {
+    html += '<div class="form-row"><label>' + f.l + '</label>';
+    if (activeCategory === 'numser' && (f.id === 'hexVal' || f.id === 'binVal')) {
+      const placeholder = f.id === 'hexVal' ? 'napr. 1E alebo E,13,16,1B,1E' : 'napr. 10110';
+      const curVal = textValues[f.id] || '';
+      html += '<input type="text" placeholder="' + placeholder + '" value="' + escHtml(curVal) + '" oninput="handleTextChange(\'' + f.id + '\',this.value)">';
+    } else {
+      const curVal = fieldValues[f.id] !== undefined ? fieldValues[f.id] : f.d;
+      if (fieldValues[f.id] === undefined) fieldValues[f.id] = f.d;
+      html += '<input type="number" step="any" value="' + curVal + '" oninput="handleFieldChange(\'' + f.id + '\',this.value)">';
+    }
+    html += '</div>';
+  });
+  html += '</div>';
+
+  html += '<button class="calc-btn" onclick="calculate()">Vypočítať</button>';
+
+  if (calcResult) {
+    html += '<div class="result-box"><div class="result-value">' + escHtml(calcResult.value) + '</div>';
+    html += '<pre class="result-steps">' + escHtml(calcResult.steps) + '</pre></div>';
+  }
+
+  html += '</div>';
+  return html;
+}
+
+function renderRulesPage() {
+  let html = '<div class="rules-page">';
+  html += '<h2>🤖 AI Pravidlá — FSG 2026 Rules v1.1</h2>';
+  html += '<div style="background:linear-gradient(135deg,rgba(34,211,238,0.15),rgba(6,182,212,0.08));border:1px solid rgba(34,211,238,0.3);border-radius:12px;padding:18px 20px;margin-bottom:20px">';
+  html += '<div style="font-weight:700;color:var(--primary);font-size:1rem;margin-bottom:8px">💡 AI s kompletným znalostným balíkom FSG 2026 Rules</div>';
+  html += '<div style="color:var(--fg-muted);font-size:.88rem;line-height:1.6;margin-bottom:14px">Plný AI asistent s <b>135 stranami FSG 2026 pravidiel</b> nahratými priamo do modelu. Vie citovať konkrétne pravidlá, vysvetliť požiadavky a pomôcť s otázkami.</div>';
+  html += '<a class="ai-link-btn" href="https://www.perplexity.ai/computer/a/fs-quiz-calculator-QRf4QXNnRDCCFNqNtAlB_w" target="_blank" rel="noopener" style="font-size:.88rem;padding:10px 22px">Otvoriť AI Pravidlá (Perplexity)</a>';
+  html += '</div>';
+  html += '<h3 style="font-size:1rem;margin-bottom:10px;color:var(--fg-muted)">Rýchly prehľad pravidiel (offline)</h3>';
+  html += '<input class="rules-search" id="rulesSearch" type="text" placeholder="Hľadať v pravidlách... (napr. ground clearance, brzdy, napätie)" oninput="filterRules()">';
+  html += '<div class="rules-count" id="rulesCount">' + fsRules.length + ' pravidiel</div>';
+  html += '<div id="rulesList">';
+  fsRules.forEach(function(r, i) {
+    html += '<div class="rule-item" id="rule-' + i + '" onclick="toggleRule(' + i + ')">';
+    html += '<div class="rule-q">' + r.q + '</div>';
+    html += '<div class="rule-a">';
+    r.tags.forEach(function(t) { html += '<span class="rule-tag">' + t + '</span>'; });
+    html += '<br><br>' + r.a + '</div>';
+    html += '</div>';
+  });
+  html += '</div></div>';
+  return html;
+}
+
+function renderAIPage() {
+  let html = '<div class="ai-page">';
+  html += '<h2>✨ AI Asistent</h2>';
+  html += '<p>Plný AI asistent s podporou obrázkov, výpočtov a kompletných FSG 2026 pravidiel je dostupný v Perplexity verzii.</p>';
+  html += '<div style="display:flex;flex-direction:column;gap:10px;margin-top:24px;align-items:center">';
+  html += '<a class="ai-link-btn" href="https://www.perplexity.ai/computer/a/fs-quiz-calculator-QRf4QXNnRDCCFNqNtAlB_w" target="_blank" rel="noopener">🤖 Otvoriť AI Asistent</a>';
+  html += '</div>';
+  html += '<div style="margin-top:32px;text-align:left;background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:20px">';
+  html += '<div style="font-weight:700;margin-bottom:12px;font-size:.95rem">Čo AI Asistent vie:</div>';
+  html += '<ul style="color:var(--fg-muted);font-size:.88rem;line-height:1.8;padding-left:20px">';
+  html += '<li>📋 Odpovedať na otázky o <b>FSG 2026 Rules v1.1</b> (135 strán)</li>';
+  html += '<li>🔢 Riešiť inžinierske a fyzikálne výpočty krok za krokom</li>';
+  html += '<li>📷 Analyzovať obrázky so zadaniami z FS Quiz</li>';
+  html += '<li>⚡ Vysvetliť EV/CV pravidlá, shutdown circuit, scoring</li>';
+  html += '<li>🏎️ Pomôcť s návrhom vozidla podľa pravidiel</li>';
+  html += '</ul></div>';
+  html += '</div>';
+  return html;
+}
+
+function render() {
+  const content = document.getElementById('mainContent');
+  const sidebar = document.getElementById('sidebar');
+
+  // Tabs
+  document.querySelectorAll('.topbar-tab').forEach(function(btn) {
+    btn.classList.toggle('active', btn.getAttribute('data-tab') === activeTab);
+  });
+
+  // Sidebar visibility
+  sidebar.style.display = activeTab === 'calc' ? '' : 'none';
+
+  if (activeTab === 'calc') {
+    renderSidebar();
+    content.innerHTML = renderCalcPage();
+  } else if (activeTab === 'rules') {
+    content.innerHTML = renderRulesPage();
+  } else if (activeTab === 'ai') {
+    content.innerHTML = renderAIPage();
+  }
+}
+
+// ===================== EVENT HANDLERS =====================
+
+function escHtml(s) {
+  const d = document.createElement('div');
+  d.appendChild(document.createTextNode(s));
+  return d.innerHTML;
+}
+
+function getCalcType() {
+  const cfg = categoriesConfig.find(function(c) { return c.id === activeCategory; });
+  return cfg ? (cfg._selectedType || cfg.types[0].v) : '';
+}
+
+function switchTab(tab) {
+  activeTab = tab;
+  calcResult = null;
+  closeSidebar();
+  render();
+}
+
+function selectCategory(catId) {
+  activeCategory = catId;
+  calcResult = null;
+  // Reset field values for new category
+  fieldValues = {};
+  textValues = {};
+  convPair = '';
+  closeSidebar();
+  render();
+}
+
+function handleTypeChange(val) {
+  const cfg = categoriesConfig.find(function(c) { return c.id === activeCategory; });
+  if (cfg) cfg._selectedType = val;
+  calcResult = null;
+  render();
+}
+
+function handleConvChange(val) {
+  convPair = val;
+  calcResult = null;
+}
+
+function handleFieldChange(id, val) {
+  fieldValues[id] = parseFloat(val) || 0;
+}
+
+function handleTextChange(id, val) {
+  textValues[id] = val;
+}
+
+function calculate() {
+  const cfg = categoriesConfig.find(function(c) { return c.id === activeCategory; });
+  if (!cfg) return;
+  const type = activeCategory === 'conv' ? (convPair || (cfg.conversions && cfg.conversions[0][1]) || '') : getCalcType();
+  // Initialize any missing field defaults
+  cfg.fields.forEach(function(f) {
+    if (activeCategory === 'numser' && (f.id === 'hexVal' || f.id === 'binVal')) return;
+    if (fieldValues[f.id] === undefined) fieldValues[f.id] = f.d;
+  });
+  calcResult = doCalculation(activeCategory, type, fieldValues, textValues);
+  // Only update result box, not entire page
+  const content = document.getElementById('mainContent');
+  content.innerHTML = renderCalcPage();
+}
+
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('sidebarOverlay').classList.toggle('open');
+}
+
+function closeSidebar() {
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('sidebarOverlay').classList.remove('open');
+}
+
+function toggleRule(i) {
+  const el = document.getElementById('rule-' + i);
+  if (el) el.classList.toggle('open');
+}
+
+function filterRules() {
+  const q = document.getElementById('rulesSearch').value.toLowerCase();
+  let count = 0;
+  fsRules.forEach(function(r, i) {
+    const el = document.getElementById('rule-' + i);
+    if (!el) return;
+    const match = !q || r.q.toLowerCase().includes(q) || r.a.toLowerCase().includes(q) || r.tags.some(function(t) { return t.toLowerCase().includes(q); });
+    el.style.display = match ? '' : 'none';
+    if (match) count++;
+  });
+  const countEl = document.getElementById('rulesCount');
+  if (countEl) countEl.textContent = count + ' pravidiel';
+}
+
+// ===================== INIT =====================
+render();
+</script>
+</body>
 </html>
